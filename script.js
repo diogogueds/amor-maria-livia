@@ -2,39 +2,51 @@ const botao = document.getElementById("botao");
 const entrada = document.getElementById("entrada");
 const conteudo = document.getElementById("conteudo");
 const musica = document.getElementById("musica");
+const senhaInput = document.getElementById("senha");
+const ajuda = document.getElementById("ajuda");
 
-let tentativas = 0;
-const maxTentativas = 5;
+let contador = 0;
+const limite = 7;
+const senhaCorreta = "diogosempretemrazao";
 
-// BOTÃO FOGE ATÉ 15 VEZES
+// BOTÃO FUGITIVO
 botao.addEventListener("mouseover", () => {
-    if (tentativas < maxTentativas) {
-        tentativas++;
+    if (contador < limite) {
+        contador++;
 
         const x = Math.random() * (window.innerWidth - 120);
         const y = Math.random() * (window.innerHeight - 60);
         botao.style.left = `${x}px`;
         botao.style.top = `${y}px`;
 
-        botao.innerText = `Tenta de novo 😏 (${tentativas}/15)`;
-    } else {
-        botao.innerText = "Agora pode clicar 💖";
-        botao.style.position = "static";
+        botao.innerText = `tenta de novo 😏 (${contador}/7)`;
+
+        if (contador === limite) {
+            botao.style.position = "static";
+            botao.innerText = "agora digita aí 😈";
+            ajuda.classList.remove("oculto");
+            senhaInput.classList.remove("oculto");
+        }
     }
 });
 
-// QUANDO CLICAR (SÓ FUNCIONA DEPOIS DAS 15)
-botao.addEventListener("click", () => {
-    if (tentativas >= maxTentativas) {
-        entrada.style.display = "none";
-        conteudo.classList.remove("oculto");
-        musica.play();
-        slideshow();
-        setInterval(slideshow, 4000);
+// VERIFICA SENHA
+senhaInput.addEventListener("keyup", () => {
+    if (senhaInput.value === senhaCorreta) {
+        abrirConteudo();
     }
 });
 
-// ========== SLIDESHOW ==========
+// ABRIR SLIDESHOW
+function abrirConteudo() {
+    entrada.style.display = "none";
+    conteudo.classList.remove("oculto");
+    musica.play();
+    slideshow();
+    setInterval(slideshow, 4000);
+}
+
+// ===== SLIDESHOW =====
 const fotos = [
     "WhatsApp Image 2025-12-29 at 21.26.55.jpeg",
     "WhatsApp Image 2025-12-29 at 21.26.55 (1).jpeg",
