@@ -1,3 +1,26 @@
+const botao = document.getElementById("botao");
+const entrada = document.getElementById("entrada");
+const conteudo = document.getElementById("conteudo");
+const musica = document.getElementById("musica");
+
+// BOTÃO QUE FOGE
+botao.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    botao.style.left = `${x}px`;
+    botao.style.top = `${y}px`;
+});
+
+// QUANDO CONSEGUIR CLICAR
+botao.addEventListener("click", () => {
+    entrada.style.display = "none";
+    conteudo.classList.remove("oculto");
+    musica.play();
+    slideshow();
+    setInterval(slideshow, 4000);
+});
+
+// TODAS AS IMAGENS
 const fotos = [
     "WhatsApp Image 2025-12-29 at 21.26.55.jpeg",
     "WhatsApp Image 2025-12-29 at 21.26.55 (1).jpeg",
@@ -42,32 +65,15 @@ const fotos = [
     "WhatsApp Image 2025-12-29 at 21.26.58 (19).jpeg"
 ];
 
+// FRASES
 const mensagens = [
     "Maria Lívia, você é o amor da minha vida 💖",
-    "Cada foto sua faz meu coração sorrir ✨",
+    "Cada momento com você vale tudo ✨",
     "Meu mundo é mais bonito com você ❤️",
     "Você é meu sonho realizado 🌹",
-    "Te amar é eterno 💞",
-    "Meu coração sempre será seu 💓",
-    "Sempre você 💘"
+    "Feliz 3 meses para nós 💕",
+    "Que venham muitos e muitos meses 💘"
 ];
 
-let indice = 0;
+let
 
-function slideshow() {
-    const foto = document.getElementById("foto");
-    const mensagem = document.getElementById("mensagem");
-
-    foto.classList.remove("fade");
-    void foto.offsetWidth;
-
-    foto.src = fotos[indice];
-    mensagem.innerText = mensagens[indice % mensagens.length];
-
-    foto.classList.add("fade");
-
-    indice = (indice + 1) % fotos.length;
-}
-
-slideshow();
-setInterval(slideshow, 4000);
