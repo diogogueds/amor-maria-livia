@@ -5,30 +5,27 @@ const musica = document.getElementById("musica");
 const senhaInput = document.getElementById("senha");
 const ajuda = document.getElementById("ajuda");
 
-let contador = 0;
-const limite = 7;
 const senhaCorreta = "diogosempretemrazao";
+let liberado = false;
 
-// BOTÃO FUGITIVO
+// BOTÃO FOGE SEMPRE
 botao.addEventListener("mouseover", () => {
-    if (contador < limite) {
-        contador++;
-
+    if (!liberado) {
         const x = Math.random() * (window.innerWidth - 120);
         const y = Math.random() * (window.innerHeight - 60);
         botao.style.left = `${x}px`;
         botao.style.top = `${y}px`;
-
-        botao.innerText = `tenta de novo 😏 (${contador}/7)`;
-
-        if (contador === limite) {
-            botao.style.position = "static";
-            botao.innerText = "agora digita aí 😈";
-            ajuda.classList.remove("oculto");
-            senhaInput.classList.remove("oculto");
-        }
     }
 });
+
+// APÓS 20 SEGUNDOS MOSTRA AJUDA + INPUT
+setTimeout(() => {
+    ajuda.classList.remove("oculto");
+    senhaInput.classList.remove("oculto");
+    botao.style.position = "static";
+    botao.innerText = "agora digita aí 😈";
+    liberado = true;
+}, 20000); // 20 segundos
 
 // VERIFICA SENHA
 senhaInput.addEventListener("keyup", () => {
@@ -37,7 +34,7 @@ senhaInput.addEventListener("keyup", () => {
     }
 });
 
-// ABRIR SLIDESHOW
+// ABRIR CONTEÚDO
 function abrirConteudo() {
     entrada.style.display = "none";
     conteudo.classList.remove("oculto");
@@ -116,6 +113,5 @@ function slideshow() {
 
     indice = (indice + 1) % fotos.length;
 }
-
 
 
