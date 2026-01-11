@@ -4,7 +4,7 @@ const conteudo = document.getElementById("conteudo");
 const musica = document.getElementById("musica");
 
 let tentativas = 0;
-const maxTentativas = 15;
+const maxTentativas = 5;
 
 // BOTÃO FOGE ATÉ 15 VEZES
 botao.addEventListener("mouseover", () => {
@@ -104,5 +104,6 @@ function slideshow() {
 
     indice = (indice + 1) % fotos.length;
 }
+
 
 
