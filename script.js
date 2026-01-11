@@ -3,24 +3,38 @@ const entrada = document.getElementById("entrada");
 const conteudo = document.getElementById("conteudo");
 const musica = document.getElementById("musica");
 
-// BOTÃO QUE FOGE
+let tentativas = 0;
+const maxTentativas = 15;
+
+// BOTÃO FOGE ATÉ 15 VEZES
 botao.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 60);
-    botao.style.left = `${x}px`;
-    botao.style.top = `${y}px`;
+    if (tentativas < maxTentativas) {
+        tentativas++;
+
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 60);
+        botao.style.left = `${x}px`;
+        botao.style.top = `${y}px`;
+
+        botao.innerText = `Tenta de novo 😏 (${tentativas}/15)`;
+    } else {
+        botao.innerText = "Agora pode clicar 💖";
+        botao.style.position = "static";
+    }
 });
 
-// QUANDO CONSEGUIR CLICAR
+// QUANDO CLICAR (SÓ FUNCIONA DEPOIS DAS 15)
 botao.addEventListener("click", () => {
-    entrada.style.display = "none";
-    conteudo.classList.remove("oculto");
-    musica.play();
-    slideshow();
-    setInterval(slideshow, 4000);
+    if (tentativas >= maxTentativas) {
+        entrada.style.display = "none";
+        conteudo.classList.remove("oculto");
+        musica.play();
+        slideshow();
+        setInterval(slideshow, 4000);
+    }
 });
 
-// TODAS AS IMAGENS
+// ========== SLIDESHOW ==========
 const fotos = [
     "WhatsApp Image 2025-12-29 at 21.26.55.jpeg",
     "WhatsApp Image 2025-12-29 at 21.26.55 (1).jpeg",
@@ -65,7 +79,6 @@ const fotos = [
     "WhatsApp Image 2025-12-29 at 21.26.58 (19).jpeg"
 ];
 
-// FRASES
 const mensagens = [
     "Maria Lívia, você é o amor da minha vida 💖",
     "Cada momento com você vale tudo ✨",
@@ -75,5 +88,21 @@ const mensagens = [
     "Que venham muitos e muitos meses 💘"
 ];
 
-let
+let indice = 0;
+
+function slideshow() {
+    const foto = document.getElementById("foto");
+    const mensagem = document.getElementById("mensagem");
+
+    foto.classList.remove("fade");
+    void foto.offsetWidth;
+
+    foto.src = fotos[indice];
+    mensagem.innerText = mensagens[indice % mensagens.length];
+
+    foto.classList.add("fade");
+
+    indice = (indice + 1) % fotos.length;
+}
+
 
